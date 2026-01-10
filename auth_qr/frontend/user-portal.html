@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Portal - SafeHer</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="portal-page">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <i class="fas fa-shield-heart"></i>
+            <span>SafeHer</span>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="user-portal.html" class="active">User Portal</a>
+            <a href="admin-portal.html">Admin Portal</a>
+        </div>
+    </nav>
+
+    <!-- Portal Header -->
+    <section class="portal-header user-header">
+        <div class="portal-header-content">
+            <i class="fas fa-user-shield"></i>
+            <h1>User Portal</h1>
+            <p>Register and get your secure QR code for identity verification</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="portal-content">
+        <div class="portal-container">
+            <!-- Registration Form -->
+            <div class="form-container large-form">
+                <h2><i class="fas fa-user-plus"></i> User Registration</h2>
+                <p class="form-description">Fill in your details to generate your secure QR code. Your information is encrypted and protected.</p>
+                
+                <form id="userRegisterForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name"><i class="fas fa-user"></i> Full Name</label>
+                            <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                        </div>
+                        <div class="form-group">
+                            <label for="email"><i class="fas fa-envelope"></i> Email Address</label>
+                            <input type="email" id="email" name="email" required placeholder="Enter your email">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone"><i class="fas fa-phone"></i> Phone Number</label>
+                            <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number">
+                        </div>
+                        <div class="form-group">
+                            <label for="emergency_contact"><i class="fas fa-phone-alt"></i> Emergency Contact</label>
+                            <input type="tel" id="emergency_contact" name="emergency_contact" placeholder="Emergency contact number">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="voter_id"><i class="fas fa-id-card"></i> Voter ID</label>
+                            <input type="text" id="voter_id" name="voter_id" required placeholder="Enter your Voter ID">
+                        </div>
+                        <div class="form-group">
+                            <label for="pan_id"><i class="fas fa-credit-card"></i> PAN ID</label>
+                            <input type="text" id="pan_id" name="pan_id" required placeholder="Enter your PAN ID">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="address"><i class="fas fa-map-marker-alt"></i> Address</label>
+                        <textarea id="address" name="address" rows="2" placeholder="Enter your address (optional)"></textarea>
+                    </div>
+                    <div class="form-checkbox">
+                        <input type="checkbox" id="terms" required>
+                        <label for="terms">I agree to the <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a></label>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full btn-large">
+                        <i class="fas fa-qrcode"></i> Register & Generate QR Code
+                    </button>
+                </form>
+                <div id="userResult" class="result-box hidden"></div>
+            </div>
+
+            <!-- Info Cards -->
+            <div class="info-cards">
+                <div class="info-card">
+                    <i class="fas fa-lock"></i>
+                    <h4>Secure & Encrypted</h4>
+                    <p>Your data is encrypted using advanced cryptography</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-bolt"></i>
+                    <h4>Instant Verification</h4>
+                    <p>Your identity can be verified within seconds</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h4>Always Accessible</h4>
+                    <p>Access your QR code anytime, anywhere</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- QR Code Modal -->
+    <div id="qrModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header success">
+                <i class="fas fa-check-circle"></i>
+                <h2>Registration Successful!</h2>
+            </div>
+            <div id="qrDisplay"></div>
+            <p class="qr-instructions">Save this QR code. It's your secure identity verification.</p>
+            <div class="modal-actions">
+                <button id="downloadQR" class="btn btn-primary">
+                    <i class="fas fa-download"></i> Download QR Code
+                </button>
+                <button id="copyData" class="btn btn-outline">
+                    <i class="fas fa-copy"></i> Copy Encrypted Data
+                </button>
+            </div>
+            <div class="encrypted-data">
+                <label>Encrypted QR Data (for verification):</label>
+                <textarea id="encryptedDataDisplay" readonly></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <i class="fas fa-shield-heart"></i>
+                <span>SafeHer</span>
+            </div>
+            <p>&copy; 2026 SafeHer - Women Safety Watch. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="user-app.js"></script>
+</body>
+</html>

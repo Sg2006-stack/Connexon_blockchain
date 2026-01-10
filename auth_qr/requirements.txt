@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+supabase
+python-dotenv
+cryptography
+qrcode
+pillow
+python-jose
+passlib[bcrypt]
+pydantic[email]
