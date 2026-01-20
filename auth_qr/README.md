@@ -1,4 +1,4 @@
-# QR Auth Backend for a Women safety IoT Device
+# Blockchain based encrypted full stack system for a Women safety IoT Device
 
 A comprehensive full-stack system for secure user authentication via QR codes, IoT device data collection, and real-time visualization. Built with FastAPI backend and React frontend, designed for a women's safety monitoring device.
 
