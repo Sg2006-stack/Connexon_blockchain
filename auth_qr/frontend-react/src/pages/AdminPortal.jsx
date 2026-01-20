@@ -24,9 +24,9 @@ const AdminPortal = () => {
 
   // Login Form
   const [loginData, setLoginData] = useState({ username: '', password: '' })
-  // Register Form
+
   const [registerData, setRegisterData] = useState({ username: '', email: '', password: '' })
-  // Verify Form
+
   const [encryptedQR, setEncryptedQR] = useState('')
 
   useEffect(() => {
@@ -400,60 +400,69 @@ const AdminPortal = () => {
                 </motion.button>
               </div>
 
-              <div className="dashboard-layout">
-                {/* Main Content */}
-                <div className="main-dashboard">
-                  {/* Stats */}
-                  <div className="stats-row">
-                    <motion.div 
-                      className="stat-card"
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.1 }}
-                    >
-                      <QrCode className="stat-icon" />
-                      <div>
-                        <h4>Verifications</h4>
-                        <p>{verifyCount}</p>
-                      </div>
-                    </motion.div>
-                    <motion.div 
-                      className="stat-card"
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.2 }}
-                    >
-                      <Clock className="stat-icon" />
-                      <div>
-                        <h4>Session Time</h4>
-                        <p>{formatTime(sessionTime)}</p>
-                      </div>
-                    </motion.div>
+              {/* Top Stats Bar */}
+              <div className="top-stats-bar">
+                <motion.div 
+                  className="stat-card compact"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.1 }}
+                >
+                  <QrCode className="stat-icon" />
+                  <div>
+                    <h4>Verifications</h4>
+                    <p>{verifyCount}</p>
                   </div>
+                </motion.div>
+                <motion.div 
+                  className="stat-card compact"
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  <Clock className="stat-icon" />
+                  <div>
+                    <h4>Session Time</h4>
+                    <p>{formatTime(sessionTime)}</p>
+                  </div>
+                </motion.div>
+              </div>
 
-                  {/* Verify Form */}
+              <div className="dashboard-layout">
+                {/* Left Side - Verify Section */}
+                <div className="left-section">
+                  {/* Encrypted Data Section */}
                   <motion.div 
-                    className="form-container verify-form"
+                    className="section-card encrypted-section"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                  >
+                    <h3><QrCode size={20} /> Encrypted Data</h3>
+                    <div className="form-group">
+                      <label>Paste Encrypted QR Code</label>
+                      <textarea
+                        value={encryptedQR}
+                        onChange={(e) => setEncryptedQR(e.target.value)}
+                        placeholder="Paste the encrypted QR data here..."
+                        rows={5}
+                        className="encrypted-textarea"
+                      />
+                    </div>
+                  </motion.div>
+
+                  {/* Verify Identity Section */}
+                  <motion.div 
+                    className="section-card verify-section"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4 }}
                   >
-                    <h3><Scan size={24} /> Verify QR Code</h3>
-                    <p className="form-description">Paste the encrypted QR data to verify a user's identity</p>
+                    <h3><Scan size={20} /> Verify Identity</h3>
                     <form onSubmit={handleVerify}>
-                      <div className="form-group">
-                        <label><QrCode size={18} /> Encrypted QR Data</label>
-                        <textarea
-                          value={encryptedQR}
-                          onChange={(e) => setEncryptedQR(e.target.value)}
-                          placeholder="Paste the encrypted QR data here..."
-                          rows={4}
-                          required
-                        />
-                      </div>
                       <motion.button
                         type="submit"
-                        className="btn btn-primary btn-full"
+                        className="btn btn-primary btn-full verify-btn"
                         disabled={loading}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
@@ -520,9 +529,9 @@ const AdminPortal = () => {
                   </AnimatePresence>
                 </div>
 
-                {/* Emergency Alerts Sidebar */}
+                {/* Right Side - Emergency Alerts */}
                 <motion.div
-                  className="emergency-sidebar"
+                  className="emergency-alerts-panel"
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.5 }}

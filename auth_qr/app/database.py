@@ -9,7 +9,6 @@ SUPABASE_KEY = get_env_var("SUPABASE_KEY")
 
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
-# Helper functions to mimic collection-style access
 class UsersTable:
     @staticmethod
     def insert_one(data: dict):

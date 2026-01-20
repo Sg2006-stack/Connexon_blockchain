@@ -10,20 +10,16 @@ validate_env_vars()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Startup
     try:
-        # Test Supabase connection
         result = supabase.table("users").select("id").limit(1).execute()
         print("Supabase connection successful")
     except Exception as e:
         print(f"Supabase connection failed: {e}")
     yield
-    # Shutdown
     pass
 
 app = FastAPI(title="QR Auth Backend - SafeHer", lifespan=lifespan)
 
-# CORS middleware for frontend
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -36,3 +32,4 @@ app.include_router(user.router, prefix="/user")
 app.include_router(admin.router, prefix="/admin")
 
 app.mount("/qr", StaticFiles(directory="qr_codes"), name="qr")
+app.mount("/", StaticFiles(directory="frontend", html=True), name="frontend")

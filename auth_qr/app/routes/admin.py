@@ -26,7 +26,6 @@ def admin_guard(credentials: HTTPAuthorizationCredentials = Depends(security)):
 @router.post("/register")
 def register_admin(admin: AdminCreate):
     try:
-        # Check if admin already exists
         existing = admins_collection.find_one({"username": admin.username})
         if existing:
             raise HTTPException(status_code=400, detail="Admin already exists")
@@ -94,17 +93,13 @@ def get_emergency_alerts(credentials: HTTPAuthorizationCredentials = Depends(sec
     admin_guard(credentials)
     
     try:
-        # Get all SOS logs ordered by timestamp (newest first)
         sos_logs = sos_logs_collection.find_all(order_by="created_at", desc=True, limit=50)
         
-        # Transform sos_logs to match frontend expectations
         alerts = []
         for log in sos_logs:
-            # Extract path from full URL if needed
             photo_url = log.get("photo_url", "")
             audio_url = log.get("audio_url", "")
             
-            # If URLs are full Supabase URLs, extract just the path
             if photo_url and "supabase.co" in photo_url:
                 photo_url = photo_url.split("/sos-media/")[-1] if "/sos-media/" in photo_url else photo_url
             if audio_url and "supabase.co" in audio_url:
@@ -113,8 +108,8 @@ def get_emergency_alerts(credentials: HTTPAuthorizationCredentials = Depends(sec
             alerts.append({
                 "id": log.get("id"),
                 "device_id": log.get("device_id"),
-                "user_name": log.get("device_id", "Unknown Device"),  # Use device_id as name
-                "user_phone": "N/A",  # ESP32 doesn't send phone
+                "user_name": log.get("device_id", "Unknown Device"),
+                "user_phone": "N/A",
                 "user_email": f"{log.get('device_id', 'unknown')}@device.local",
                 "latitude": log.get("latitude", 0),
                 "longitude": log.get("longitude", 0),
